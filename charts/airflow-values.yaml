@@ -3,7 +3,7 @@ dags:
     enabled: false
   gitSync:
     enabled: true
-    repo: "https://github.com/Abdullah03366/test_airflow"
+    repo: "https://github.com/Abdullah03366/test_airflow.git"
     branch: main
     rev: HEAD
     subPath: dags
