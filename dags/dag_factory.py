@@ -11,7 +11,7 @@ default_args = {
 }
 
 with DAG(
-    dag_id='hello_world_bash_v1',
+    dag_id='hello_world_legacy_bash_v1',
     default_args=default_args,
     schedule_interval='@daily',
     catchup=False,
