@@ -1,6 +1,26 @@
+from datetime import datetime, timedelta
+
+from airflow import DAG
 from airflow.operators.bash import BashOperator
 
-hello_task = BashOperator(
-    task_id='hello_world_bash',
-    bash_command='echo "Hello, World!"',
-)
+default_args = {
+    'owner': 'test',
+    'depends_on_past': False,
+    'start_date': datetime(2025, 5, 12),
+    'retries': 0,
+}
+
+with DAG(
+    dag_id='cis_company.hello_world_bash_v1',
+    default_args=default_args,
+    schedule_interval='@daily',
+    catchup=False,
+    tags=['example', 'bash'],
+) as dag:
+
+    hello_bash = BashOperator(
+        task_id='hello_world_task',
+        bash_command='echo "Hello, World!"',
+    )
+
+    hello_bash
