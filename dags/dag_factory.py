@@ -11,8 +11,8 @@ DEFAULT_ARGS = {
     'depends_on_past': False,
 }
 
-BASE_SCRIPT_PATH = '/opt/airflow/repo/legacy/bash'
-CONFIG_FILE = '/opt/airflow/repo/dags/jobs_config.yml'
+BASE_SCRIPT_PATH = '/opt/airflow/dags/legacy/bash'
+CONFIG_FILE     = '/opt/airflow/dags/dags/jobs_config.yml'
 
 with open(CONFIG_FILE) as f:
     jobs = yaml.safe_load(f)
