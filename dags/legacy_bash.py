@@ -4,7 +4,7 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 
 SCRIPT_SUBDIR = "scripts"
-SCRIPT_NAME = "hello1.sh "
+SCRIPT_NAME = "hello1.sh"
 
 DAG_FOLDER_TEMPLATE = '{{ dag_run.dag.folder }}' 
 
@@ -26,7 +26,7 @@ with DAG(
 ) as dag:
     run_script = BashOperator(
         task_id="run_legacy_bash_script",
-        bash_command=f"bash {FULL_SCRIPT_PATH_TEMPLATE}", 
+        bash_command=f"bash {FULL_SCRIPT_PATH_TEMPLATE} ", 
     )
     
     run_script
