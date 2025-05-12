@@ -4,21 +4,21 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 
 DEFAULT_ARGS = {
-    'owner': 'legacy',
+    'owner': 'test',
     'start_date': datetime(2025, 5, 12),
     'retries': 1,
     'retry_delay': timedelta(minutes=2),
     'depends_on_past': False,
 }
 
-BASE_SCRIPT_PATH = '/opt/airflow/legacy/bash'
-CONFIG_FILE = os.path.join(os.path.dirname(__file__), 'jobs_config.yml')
+BASE_SCRIPT_PATH = '/opt/airflow/repo/legacy/bash'
+CONFIG_FILE = '/opt/airflow/repo/dags/jobs_config.yml'
 
 with open(CONFIG_FILE) as f:
     jobs = yaml.safe_load(f)
 
 for job in jobs:
-    dag_id = f"legacy.{job['job_id']}_v1"
+    dag_id = f"test.legacy.bash.{job['job_id']}_v1"
     dag = DAG(
         dag_id=dag_id,
         default_args=DEFAULT_ARGS,
