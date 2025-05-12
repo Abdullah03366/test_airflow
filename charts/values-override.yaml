@@ -1,0 +1,11 @@
+dags:
+  persistence:
+    enabled: false
+  gitSync:
+    enabled: true
+    repo: "https://github.com/Abdullah03366/test_airflow"
+    branch: main
+    rev: HEAD
+    subPath: dags
+    wait: 30
+    depth: 1
