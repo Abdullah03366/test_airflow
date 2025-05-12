@@ -20,7 +20,7 @@ with DAG(
 
     run_script = BashOperator(
         task_id = "run_legacy_bash_script",
-        bash_command = "$/legacy/bash/hello1.sh ",
+        bash_command = "/legacy/bash/hello1.sh ",
     )
 
     run_script
