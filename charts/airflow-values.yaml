@@ -7,5 +7,5 @@ dags:
     branch: main
     rev: HEAD
     subPath: dags
-    wait: 30
+    wait: 15
     depth: 1
