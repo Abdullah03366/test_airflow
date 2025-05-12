@@ -6,6 +6,7 @@ dags:
     repo: "https://github.com/Abdullah03366/test_airflow.git"
     branch: main
     rev: HEAD
-    subPath: dags
+    subPath: .
     wait: 30
     depth: 1
+    mountPath: /opt/airflow/repo
