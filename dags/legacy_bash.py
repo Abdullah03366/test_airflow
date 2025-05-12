@@ -4,7 +4,7 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 
 SCRIPT_SUBDIR = "scripts"
-SCRIPT_NAME = "hello1.sh"
+SCRIPT_NAME = "hello1.sh "
 
 DAG_FOLDER_TEMPLATE = '{{ dag_run.dag.folder }}' 
 
