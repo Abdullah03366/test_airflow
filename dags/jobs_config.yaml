@@ -1,6 +1,0 @@
-- job_id: hello1
-  script: hello1.sh
-- job_id: hello2
-  script: hello2.sh
-- job_id: hello3
-  script: hello3.sh
