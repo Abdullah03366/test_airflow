@@ -3,33 +3,24 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 
-DEFAULT_ARGS = {
+default_args = {
     'owner': 'test',
-    'start_date': datetime(2025, 5, 12),
-    'retries': 1,
-    'retry_delay': timedelta(minutes=2),
     'depends_on_past': False,
+    'start_date': datetime(2025, 5, 12),
+    'retries': 0,
 }
 
-BASE_SCRIPT_PATH = '/opt/airflow/dags/repo/legacy/bash'
-CONFIG_FILE = '/opt/airflow/dags/repo/dags/jobs_config.yml'
+with DAG(
+    dag_id='hello_world_bash_v1',
+    default_args=default_args,
+    schedule_interval='@daily',
+    catchup=False,
+    tags=['example', 'bash'],
+) as dag:
 
-with open(CONFIG_FILE) as f:
-    jobs = yaml.safe_load(f)
+    run_script = BashOperator(
+        task_id = "run_legacy_bash_script",
+        bash_command = "$/legacy/bash/hello1.sh ",
+    )
 
-for job in jobs:
-    dag_id = f"test.legacy.bash.{job['job_id']}_v1"
-    dag = DAG(
-        dag_id=dag_id,
-        default_args=DEFAULT_ARGS,
-        schedule_interval='@daily',
-        catchup=False,
-        tags=['legacy','bash']
-    )
-    BashOperator(
-        task_id=f"run_{job['job_id']}",
-        bash_command=f"bash {BASE_SCRIPT_PATH}/{job['script']}",
-        dag=dag,
-        do_xcom_push=False,
-    )
-    globals()[dag_id] = dag
+    run_script
