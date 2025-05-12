@@ -1,14 +1,7 @@
-import os
 from datetime import datetime, timedelta
+
 from airflow import DAG
 from airflow.operators.bash import BashOperator
-
-SCRIPT_SUBDIR = "scripts"
-SCRIPT_NAME = "hello1.sh"
-
-DAG_FOLDER_TEMPLATE = '{{ dag_run.dag.folder }}' 
-
-FULL_SCRIPT_PATH_TEMPLATE = os.path.join(DAG_FOLDER_TEMPLATE, SCRIPT_SUBDIR, SCRIPT_NAME)
 
 default_args = {
     'owner': 'test',
@@ -18,16 +11,16 @@ default_args = {
 }
 
 with DAG(
-    dag_id='hello_world_legacy_bash_v2',
+    dag_id='hello_world_bash_v1',
     default_args=default_args,
     schedule_interval='@daily',
     catchup=False,
-    tags=['example', 'bash', 'gitsync'],
+    tags=['example', 'bash'],
 ) as dag:
 
-    run_script = BashOperator(
-        task_id="run_legacy_bash_script",
-        bash_command=f"bash {FULL_SCRIPT_PATH_TEMPLATE}", 
+    hello_bash = BashOperator(
+        task_id='hello_world_task',
+        bash_command='echo "Hello, World!"',
     )
 
-    run_script
+    hello_bash
