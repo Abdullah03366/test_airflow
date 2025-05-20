@@ -9,3 +9,7 @@ dags:
     subPath: dags
     wait: 15
     depth: 1
+
+airflow:
+  extraPipPackages:
+    - "apache-airflow-providers-ssh"
