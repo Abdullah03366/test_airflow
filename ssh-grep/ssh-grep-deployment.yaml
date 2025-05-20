@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssh-grep
+  labels:
+    app: ssh-grep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ssh-grep
+  template:
+    metadata:
+      labels:
+        app: ssh-grep
+    spec:
+      containers:
+        - name: ssh-grep
+          image: grep-ssh:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 22
+          # Zorg dat de container blijft draaien
+          command: ["/bin/sh", "-c"]
+          args:
+            - service ssh start; tail -f /dev/null
