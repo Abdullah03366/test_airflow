@@ -22,4 +22,3 @@ EXPOSE 22
 
 # Start zowel SSH-daemon als slaaploop zodat de container blijft draaien
 CMD ["/bin/sh", "-c", "service ssh start && tail -f /dev/null"]
-e9H.R6HU@TDc$2g
