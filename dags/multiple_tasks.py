@@ -1,17 +1,33 @@
 from airflow import DAG
-from airflow.providers.standard.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
 from datetime import datetime
 
 with DAG(
-    dag_id='compact_python_workflow',
+    dag_id='bash_data_pipeline_demo',
     start_date=datetime(2025, 6, 1),
     schedule_interval=None,
     catchup=False,
+    tags=['demo', 'bash'],
 ) as dag:
 
-    t1 = PythonOperator(task_id='stap_1', python_callable=lambda: print("Stap 1: Data ophalen"))
-    t2 = PythonOperator(task_id='stap_2', python_callable=lambda: print("Stap 2: Bewerken"))
-    t3 = PythonOperator(task_id='stap_3', python_callable=lambda: print("Stap 3: Valideren"))
-    t4 = PythonOperator(task_id='stap_4', python_callable=lambda: print("Stap 4: Opslaan"))
+    fetch_data = BashOperator(
+        task_id='fetch_data_from_source',
+        bash_command='echo "Stap 1: Ophalen van ruwe data uit externe bron..."'
+    )
 
-    t1 >> t2 >> t3 >> t4
+    process_data = BashOperator(
+        task_id='process_and_clean_data',
+        bash_command='echo "Stap 2: Bewerken en opschonen van data..."'
+    )
+
+    validate_data = BashOperator(
+        task_id='validate_processed_data',
+        bash_command='echo "Stap 3: Valideren van bewerkte data..."'
+    )
+
+    save_data = BashOperator(
+        task_id='save_data_to_storage',
+        bash_command='echo "Stap 4: Opslaan van gevalideerde data in storage..."'
+    )
+
+    fetch_data >> process_data >> validate_data >> save_data
