@@ -16,9 +16,6 @@ with DAG(
     schedule_interval='@daily',
     catchup=False,
     tags=['example', 'bash'],
-    access_control={
-        "example_viewer": {"can_read"},
-    },
 ) as dag:
 
     hello_bash = BashOperator(
